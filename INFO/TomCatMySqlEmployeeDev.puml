@@ -1,0 +1,55 @@
+@startuml
+class org.example.app.entity.Employee {
+- Long id
+- String name
+- String position
+- String phone
++ Long getId()
++ String getName()
++ String getPosition()
++ String getPhone()
+}
+
+
+class org.example.app.controller.EmployeeController {
+- EmployeeRepository repository
+# void doPost(HttpServletRequest,HttpServletResponse)
+# void doGet(HttpServletRequest,HttpServletResponse)
+- void create(HttpServletRequest,HttpServletResponse)
+- void read(HttpServletRequest,HttpServletResponse)
+- void update(HttpServletRequest,HttpServletResponse)
+- void delete(HttpServletRequest,HttpServletResponse)
+- void showNewForm(HttpServletRequest,HttpServletResponse)
+- void showEditForm(HttpServletRequest,HttpServletResponse)
+}
+
+
+class org.example.app.database.DBConn {
+- {static} Logger LOGGER
++ {static} Connection connect()
+}
+
+
+interface org.example.app.repository.AppRepository {
+~ void create(T)
+~ List<T> read()
+~ T readById(Long)
+~ void update(T)
+~ void delete(Long)
+}
+
+class org.example.app.repository.impl.EmployeeRepository {
+- {static} Logger LOGGER
++ void create(Employee)
++ List<Employee> read()
++ Employee readById(Long)
++ void update(Employee)
++ void delete(Long)
+}
+
+
+
+
+jakarta.servlet.http.HttpServlet <|-- org.example.app.controller.EmployeeController
+org.example.app.repository.AppRepository <|.. org.example.app.repository.impl.EmployeeRepository
+@enduml
